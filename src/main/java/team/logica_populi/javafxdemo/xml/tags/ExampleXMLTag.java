@@ -10,7 +10,7 @@ public class ExampleXMLTag extends XMLTreeNode {
     public final IntegerProperty exampleIntProperty = new IntegerProperty("ExampleIntProperty", 1);
     // For optional fields, null is a valid value
     public final BooleanProperty exampleOptionalBoolProperty = new BooleanProperty("ExampleOptionalBoolProperty", null, true);
-    protected ExampleXMLTag() {
+    public ExampleXMLTag() {
         super("Example"); // <Example>...</Example>
 
         // Don't forget to add your properties to the back end. Without this the XML parser won't know they exist

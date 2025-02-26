@@ -11,5 +11,10 @@ module team.logica_populi.javafxdemo {
     requires java.desktop;
 
     opens team.logica_populi.javafxdemo to javafx.fxml;
+    opens team.logica_populi.javafxdemo.ui.controllers to javafx.fxml;
     exports team.logica_populi.javafxdemo;
+    exports team.logica_populi.javafxdemo.xml.tags;
+    exports team.logica_populi.javafxdemo.xml.properties;
+    exports team.logica_populi.javafxdemo.xml.properties.transformers;
+    exports team.logica_populi.javafxdemo.ui.controllers;
 }

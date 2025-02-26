@@ -6,8 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import team.logica_populi.javafxdemo.ui.FormFieldDemo;
+import team.logica_populi.javafxdemo.ui.UiComponentMaker;
+import team.logica_populi.javafxdemo.ui.controllers.QuestionPaneController;
+import team.logica_populi.javafxdemo.xml.tags.AnswerOptions;
 import team.logica_populi.javafxdemo.xml.tags.ExampleXMLTag;
+import team.logica_populi.javafxdemo.xml.tags.Question;
 import team.logica_populi.javafxdemo.xml.tags.XMLRegistry;
 
 import java.io.IOException;
@@ -24,18 +29,34 @@ public class MainApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        // Paths function how you would expect them to. Keep in mind relative paths will start in the same file as the class file.
-        // The class by default is placed under its package name if you replaced all the . with /
-        // So for this class it would be /team/logica_populi/javafxdemo/MainApplication.class
-        // Keep in mind that the resource loader only looks for files in the compiled jar file. if you want to put files in this jar file use the resources folder under src/main
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/views/main-view.fxml"));
-        Parent parent = fxmlLoader.load();
-        ((Pane) parent).getChildren().add(new FormFieldDemo()); // Add a form Field Demo to the loaded FXML file dynamically
-        Scene scene = new Scene(parent, 320, 240);
-        stage.setTitle("Hello!"); // Set the window title in the window title bar
-        stage.setScene(scene); // set the scene that this window will display
-        stage.show(); // make the stage (window) visible. Without this you won't see anything.
+        /*
+          This modified version of the start method will instead display a question pane made using FXML and will also show you how you can load custom data into it.
+          @see UiComponentMaker
+          The old version of the method is below in a comment
+         */
+        Question question = new Question();
+        question.setData("What is 2+2?", "3", "5", "4", "2", AnswerOptions.ANSWER3);
+        Pair<Parent, QuestionPaneController> pair = UiComponentMaker.createQuestionPane(question);
+        Scene scene = new Scene(pair.getKey(), 600, 400);
+        stage.setTitle("Question 1");
+        stage.setScene(scene);
+        stage.show();
     }
+
+//    @Override
+//    public void start(Stage stage) throws IOException {
+//        // Paths function how you would expect them to. Keep in mind relative paths will start in the same file as the class file.
+//        // The class by default is placed under its package name if you replaced all the . with /
+//        // So for this class it would be /team/logica_populi/javafxdemo/MainApplication.class
+//        // Keep in mind that the resource loader only looks for files in the compiled jar file. if you want to put files in this jar file use the resources folder under src/main
+//        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/views/main-view.fxml"));
+//        Parent parent = fxmlLoader.load();
+//        ((Pane) parent).getChildren().add(new FormFieldDemo()); // Add a form Field Demo to the loaded FXML file dynamically
+//        Scene scene = new Scene(parent, 320, 240);
+//        stage.setTitle("Hello!"); // Set the window title in the window title bar
+//        stage.setScene(scene); // set the scene that this window will display
+//        stage.show(); // make the stage (window) visible. Without this you won't see anything.
+//    }
 
     /**
      * This is the main entry point to the program
@@ -88,5 +109,6 @@ public class MainApplication extends Application {
      */
     private static void registerXML() {
         XMLRegistry.getInstance().register("Example", ExampleXMLTag.class);
+        XMLRegistry.getInstance().register("Question", Question.class);
     }
 }

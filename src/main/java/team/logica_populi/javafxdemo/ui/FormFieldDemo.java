@@ -7,6 +7,7 @@ import java.io.File;
 
 public class FormFieldDemo extends VBox {
     public FormFieldDemo() {
+        super();
         BooleanField booleanField = new BooleanField("Example Bool Field", false, ((Boolean newValue) -> {
             // TODO: do something with the new value.
             // Note that any Fields that have a text box for their input require "Enter" to be pressed for this function to be called.
